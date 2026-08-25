@@ -1,0 +1,49 @@
+rules_version = '2';
+
+// ResQLink Firestore Security Rules.
+//
+// IMPORTANT: paste this into Firebase Console -> Firestore Database -> Rules
+// (or deploy via `firebase deploy --only firestore:rules` if you set up the
+// Firebase CLI) -- this file is NOT automatically picked up by the Android
+// build, it's a reference copy for version control.
+//
+// Current state: open read/write on all three collections. This project has
+// no user authentication yet (UserRepository is local-only, see
+// domain/repository/UserRepository.kt), so there is no request.auth to key
+// rules off of. Anyone with your Firebase project config could write bogus
+// SOS alerts or hazards right now -- acceptable for a coursework demo, NOT
+// acceptable if this were a real deployment. Before any real use, add
+// Firebase Authentication and tighten these to check request.auth.uid,
+// following the pattern shown in Firebase's own docs:
+// https://firebase.google.com/docs/firestore/security/rules-conditions
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // SOS alerts: anyone can create (an emergency shouldn't require prior
+    // signup). `update` is also allowed -- SosRepositoryImpl retries a
+    // failed sync using the SAME document ID via .set(), and Firestore
+    // treats a retry against an already-created document as an update, not
+    // a create; blocking update would make retries fail. `read`/`delete`
+    // stay blocked so the full alert list (which would leak every user's
+    // live location) can't be scraped. Once auth exists, scope `update` to
+    // only the document's own creator via request.auth.uid.
+    match /sos_alerts/{alertId} {
+      allow create, update: if true;
+      allow read, delete: if false;
+    }
+
+    // Hazards and first-aid guides: read-only reference content for every
+    // client. Writes are intentionally blocked here -- populate these
+    // collections yourself via the Firebase Console (see README section 9)
+    // rather than allowing arbitrary clients to edit hazard/first-aid data.
+    match /hazards/{hazardId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /first_aid_guides/{guideId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}

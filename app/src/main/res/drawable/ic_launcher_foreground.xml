@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Shield + cross glyph in the app's signal-cyan accent, on the dark launcher background -->
+    <path
+        android:fillColor="#35E0C8"
+        android:pathData="M54,20 L78,30 V54 C78,70 68,82 54,88 C40,82 30,70 30,54 V30 Z" />
+    <path
+        android:fillColor="#0B0F17"
+        android:pathData="M50,42 H58 V50 H66 V58 H58 V66 H50 V58 H42 V50 H50 Z" />
+</vector>

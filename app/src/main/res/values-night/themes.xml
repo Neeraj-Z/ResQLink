@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.ResQLink" parent="android:Theme.Material.NoActionBar" />
+    <style name="Theme.ResQLink.Splash" parent="Theme.ResQLink">
+        <item name="android:windowBackground">#0B0F17</item>
+    </style>
+</resources>
