@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.ResQLink" parent="android:Theme.Material.NoActionBar" />
+    <!-- Dark splash regardless of system theme - ResQLink is a dark-first
+         "ops console" design; a white flash before the dark theme loads
+         would undercut that on first launch. -->
+    <style name="Theme.ResQLink.Splash" parent="Theme.ResQLink">
+        <item name="android:windowBackground">#0B0F17</item>
+    </style>
+</resources>
