@@ -55,7 +55,7 @@ class MapViewModel @Inject constructor(
     /** Best-effort: the map still renders hazards/SOS pins even if location is denied or unavailable. */
     fun locateUser() {
         viewModelScope.launch {
-            val result = locationRepository.getCurrentLocation(timeoutMillis = 6_000L)
+            val result = locationRepository.getCurrentLocation(timeoutMillis = 10_000L)
             if (result is LocationResult.Success) {
                 _uiState.update {
                     it.copy(userLatitude = result.location.latitude, userLongitude = result.location.longitude)

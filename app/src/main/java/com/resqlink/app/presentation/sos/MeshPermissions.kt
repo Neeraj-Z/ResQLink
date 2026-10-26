@@ -22,6 +22,7 @@ object MeshPermissions {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             add(Manifest.permission.NEARBY_WIFI_DEVICES)
+            add(Manifest.permission.POST_NOTIFICATIONS)
         }
         // Pre-Android 13 BLE/Wi-Fi Direct discovery still requires location
         // permission at the OS level, independent of ResQLink's own use of

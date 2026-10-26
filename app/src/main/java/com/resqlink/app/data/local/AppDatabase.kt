@@ -40,6 +40,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        const val DATABASE_NAME = "resqlink.db"
+        const val DATABASE_NAME = "resqlink_clean_v1.db"
     }
 }

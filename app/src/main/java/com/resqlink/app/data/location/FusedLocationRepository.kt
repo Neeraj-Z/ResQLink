@@ -3,6 +3,8 @@ package com.resqlink.app.data.location
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,13 +21,12 @@ import javax.inject.Singleton
 import kotlin.coroutines.resume
 
 /**
- * Wraps [FusedLocationProviderClient] behind [LocationRepository].
- *
- * Strategy: try for a fresh, high-accuracy fix within [LocationRepository.getCurrentLocation]'s
- * timeout; if that doesn't resolve in time (indoors, cold GPS, airplane mode with
- * only cached data, etc.), fall back to whatever last-known location the device
- * already has cached rather than returning nothing -- a slightly stale location
- * on an SOS alert is far more useful than none at all.
+ * Wraps [FusedLocationProviderClient] behind [LocationRepository] with
+ * multi-tier fallbacks:
+ * 1. Immediate cached fix from Google Play Services or native Android LocationManager.
+ * 2. Fresh high-accuracy satellite GPS fix within timeout.
+ * 3. Fresh balanced network/Wi-Fi fix (crucial for indoor use).
+ * 4. Stored native Android cell/Wi-Fi cached coordinates.
  */
 @Singleton
 class FusedLocationRepository @Inject constructor(
@@ -36,24 +37,48 @@ class FusedLocationRepository @Inject constructor(
         LocationServices.getFusedLocationProviderClient(context)
     }
 
+    private val locationManager: LocationManager? by lazy {
+        context.getSystemService(Context.LOCATION_SERVICE) as? LocationManager
+    }
+
     override suspend fun getCurrentLocation(timeoutMillis: Long): LocationResult {
         if (!hasLocationPermission()) return LocationResult.PermissionDenied
 
-        val fresh = withTimeoutOrNull(timeoutMillis) { requestFreshLocation() }
+        // 1. Check if we already have a recent cached location
+        val cached = requestLastKnownLocation() ?: getNativeFallbackLocation()
+        if (cached != null && System.currentTimeMillis() - cached.timestampEpochMillis < 60_000L) {
+            // Very fresh (< 1 minute old), return immediately
+            return LocationResult.Success(cached)
+        }
+
+        // 2. Try fresh high-accuracy satellite GPS
+        val fresh = withTimeoutOrNull(timeoutMillis) {
+            requestFreshLocation(Priority.PRIORITY_HIGH_ACCURACY)
+        }
         if (fresh != null) return LocationResult.Success(fresh)
 
-        val lastKnown = requestLastKnownLocation()
-        return lastKnown?.let { LocationResult.Success(it) } ?: LocationResult.Unavailable
+        // 3. Fallback: try balanced network/Wi-Fi accuracy (works indoors)
+        val networkFresh = withTimeoutOrNull(3_000L) {
+            requestFreshLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY)
+        }
+        if (networkFresh != null) return LocationResult.Success(networkFresh)
+
+        // 4. Return any last known location (even if older)
+        if (cached != null) return LocationResult.Success(cached)
+
+        // 5. Final fallback: Native Android OS LocationManager
+        val nativeLocation = getNativeFallbackLocation()
+        return nativeLocation?.let { LocationResult.Success(it) } ?: LocationResult.Unavailable
     }
 
     private fun hasLocationPermission(): Boolean =
         ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
-    @Suppress("MissingPermission") // hasLocationPermission() is checked by the only caller, getCurrentLocation()
-    private suspend fun requestFreshLocation(): GeoLocation? = suspendCancellableCoroutine { cont ->
+    @Suppress("MissingPermission")
+    private suspend fun requestFreshLocation(priority: Int): GeoLocation? = suspendCancellableCoroutine { cont ->
         val request = CurrentLocationRequest.Builder()
-            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+            .setPriority(priority)
             .build()
 
         val cancellationSource = com.google.android.gms.tasks.CancellationTokenSource()
@@ -86,5 +111,32 @@ class FusedLocationRepository @Inject constructor(
                     if (cont.isActive) cont.resume(null)
                 }
         }
+    }
+
+    @Suppress("MissingPermission")
+    private fun getNativeFallbackLocation(): GeoLocation? {
+        if (!hasLocationPermission()) return null
+        val lm = locationManager ?: return null
+        val providers = listOf(
+            LocationManager.GPS_PROVIDER,
+            LocationManager.NETWORK_PROVIDER,
+            LocationManager.PASSIVE_PROVIDER
+        )
+        var bestLoc: Location? = null
+        for (provider in providers) {
+            try {
+                if (lm.isProviderEnabled(provider)) {
+                    val loc = lm.getLastKnownLocation(provider)
+                    if (loc != null) {
+                        if (bestLoc == null || loc.time > bestLoc.time) {
+                            bestLoc = loc
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                // provider might not be supported or restricted
+            }
+        }
+        return bestLoc?.let { GeoLocation(it.latitude, it.longitude, it.accuracy, it.time) }
     }
 }

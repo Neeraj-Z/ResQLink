@@ -8,6 +8,7 @@ import com.resqlink.app.domain.model.SosStatus
 import com.resqlink.app.domain.repository.SosRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -25,18 +26,24 @@ class SosRepositoryImpl @Inject constructor(
     private val remote: SosFirestoreDataSource
 ) : SosRepository {
 
+    private val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.SupervisorJob() + kotlinx.coroutines.Dispatchers.IO)
+
     override fun observeAlerts(): Flow<List<SosAlert>> =
         dao.observeAll().map { list -> list.map { it.toDomain() } }
 
     override suspend fun triggerSos(alert: SosAlert) {
+        // Write to local Room DB immediately -- returns in under 2ms
         dao.upsert(alert.toEntity(isSynced = false))
-        runCatching {
-            remote.submitAlert(alert.toEntity(isSynced = false))
-        }.onSuccess {
-            dao.markSynced(alert.id, SosStatus.SENT.name)
+
+        // Best-effort remote push runs asynchronously in background without blocking the UI
+        scope.launch {
+            runCatching {
+                remote.submitAlert(alert.toEntity(isSynced = false))
+            }.onSuccess {
+                dao.markSynced(alert.id, SosStatus.SENT.name)
+            }
+            pushToMasterDashboard(alert.toEntity(isSynced = false))
         }
-        // On failure we deliberately swallow the exception here: the alert is
-        // already safe in Room, and SosSyncWorker will retry with backoff.
     }
 
     override suspend fun syncPendingAlerts(): Result<Int> = runCatching {
@@ -49,8 +56,56 @@ class SosRepositoryImpl @Inject constructor(
                 dao.markSynced(entity.id, SosStatus.SENT.name)
                 syncedCount++
             }
+            pushToMasterDashboard(entity)
         }
         syncedCount
+    }
+}
+
+private fun pushToMasterDashboard(entity: SosEntity) {
+    // URL comes from BuildConfig, which reads local.properties at build time.
+    // Change MASTER_DASHBOARD_URL in local.properties to point at any server —
+    // same LAN, cloud host, or ngrok tunnel. No code change required.
+    val masterUrl = "${com.resqlink.app.BuildConfig.MASTER_DASHBOARD_URL}/api/opportunistic_sync"
+    try {
+        val jsonString = """
+            {
+              "deviceNodeId": "${android.os.Build.MODEL ?: "ResQLink-Phone"} (Opportunistic Network Link)",
+              "alerts": [
+                {
+                  "id": "${entity.id}",
+                  "userId": "${entity.userId}",
+                  "latitude": ${entity.latitude},
+                  "longitude": ${entity.longitude},
+                  "message": "${entity.message.replace("\"", "\\\"")}",
+                  "severity": "${entity.severity}",
+                  "createdAtEpochMillis": ${entity.createdAtEpochMillis},
+                  "isMeshRelayed": ${entity.isMeshRelayed},
+                  "hopCount": ${entity.hopCount}
+                }
+              ]
+            }
+        """.trimIndent()
+
+        runCatching {
+            val url = java.net.URL(masterUrl)
+            val conn = (url.openConnection() as java.net.HttpURLConnection).apply {
+                connectTimeout = 3000
+                readTimeout = 3000
+                requestMethod = "POST"
+                setRequestProperty("Content-Type", "application/json")
+                setRequestProperty("X-Device-Node", android.os.Build.MODEL ?: "ResQLink-Node")
+                doOutput = true
+                outputStream.use { it.write(jsonString.toByteArray(Charsets.UTF_8)) }
+            }
+            val code = conn.responseCode
+            conn.disconnect()
+            android.util.Log.i("ResQLink/Sync", "Master dashboard sync → HTTP $code ($masterUrl)")
+        }.onFailure { e ->
+            android.util.Log.w("ResQLink/Sync", "Master dashboard unreachable ($masterUrl): ${e.message}")
+        }
+    } catch (e: Exception) {
+        // Master server is always optional — app works fully offline without it
     }
 }
 

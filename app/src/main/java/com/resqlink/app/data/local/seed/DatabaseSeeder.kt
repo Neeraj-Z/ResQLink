@@ -1,46 +1,32 @@
 package com.resqlink.app.data.local.seed
 
 import com.resqlink.app.data.local.dao.FirstAidDao
-import com.resqlink.app.data.local.dao.HazardDao
 import com.resqlink.app.data.local.dao.UserDao
 import com.resqlink.app.data.local.entity.FirstAidEntity
-import com.resqlink.app.data.local.entity.HazardEntity
 import com.resqlink.app.data.local.entity.UserEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Populates Room with realistic sample data so every screen is demoable
- * before a real backend exists. Debug-only by design (see the call site in
- * ResQLinkApp) -- this must never run in a release build, since it would
- * silently overwrite real cached data with fixtures.
- *
- * Idempotent: every entity uses a fixed, hardcoded ID and Room's upsert is
- * REPLACE-on-conflict, so calling [seedSampleData] on every app launch is safe
- * and won't duplicate rows.
- */
 @Singleton
 class DatabaseSeeder @Inject constructor(
     private val firstAidDao: FirstAidDao,
-    private val hazardDao: HazardDao,
     private val userDao: UserDao
 ) {
     suspend fun seedSampleData() {
         seedUser()
         seedFirstAidGuides()
-        seedHazards()
     }
 
     private suspend fun seedUser() {
         userDao.upsert(
             UserEntity(
                 id = "local_user",
-                name = "Aarav Sharma",
-                phone = "+91 98765 43210",
+                name = "My Device",
+                phone = "",
                 role = "CITIZEN",
-                bloodGroup = "O+",
-                emergencyContact = "+91 91234 56789",
-                medicalNotes = "No known allergies."
+                bloodGroup = null,
+                emergencyContact = null,
+                medicalNotes = null
             )
         )
     }
@@ -143,66 +129,6 @@ class DatabaseSeeder @Inject constructor(
                     ),
                     criticalWarning = null,
                     imageUrl = null
-                )
-            )
-        )
-    }
-
-    /**
-     * Sample zones centered loosely around Delhi NCR, matching MapScreen's
-     * default camera position. Coordinates are illustrative, not real hazard data.
-     */
-    private suspend fun seedHazards() {
-        val now = System.currentTimeMillis()
-        hazardDao.upsertAll(
-            listOf(
-                HazardEntity(
-                    id = "hazard-flood-yamuna",
-                    type = "FLOOD",
-                    severity = "HIGH",
-                    title = "Yamuna riverbank flood warning",
-                    description = "Water levels rising above danger mark following heavy upstream rainfall.",
-                    latitude = 28.6139,
-                    longitude = 77.2410,
-                    radiusMeters = 3000.0,
-                    issuedAtEpochMillis = now - 3 * 60 * 60 * 1000,
-                    source = "Central Water Commission"
-                ),
-                HazardEntity(
-                    id = "hazard-heat-central",
-                    type = "OTHER",
-                    severity = "MODERATE",
-                    title = "Extreme heat advisory",
-                    description = "Daytime temperatures expected to exceed 45\u00b0C; limit outdoor activity 12pm-4pm.",
-                    latitude = 28.6304,
-                    longitude = 77.2177,
-                    radiusMeters = 15000.0,
-                    issuedAtEpochMillis = now - 6 * 60 * 60 * 1000,
-                    source = "India Meteorological Department"
-                ),
-                HazardEntity(
-                    id = "hazard-fire-industrial",
-                    type = "FIRE",
-                    severity = "EXTREME",
-                    title = "Industrial fire, Okhla sector",
-                    description = "Active fire at a warehouse facility; avoid the area, heavy smoke reported.",
-                    latitude = 28.5355,
-                    longitude = 77.2910,
-                    radiusMeters = 1500.0,
-                    issuedAtEpochMillis = now - 45 * 60 * 1000,
-                    source = "Delhi Fire Services"
-                ),
-                HazardEntity(
-                    id = "hazard-landslide-hills",
-                    type = "LANDSLIDE",
-                    severity = "LOW",
-                    title = "Minor landslide risk, northern hills",
-                    description = "Loose soil reported after recent rain; monitor local advisories before hiking.",
-                    latitude = 28.9,
-                    longitude = 77.5,
-                    radiusMeters = 5000.0,
-                    issuedAtEpochMillis = now - 20 * 60 * 60 * 1000,
-                    source = "State Disaster Management Authority"
                 )
             )
         )

@@ -44,7 +44,7 @@ class SosViewModel @Inject constructor(
     fun refreshLocation() {
         _uiState.update { it.copy(locationStatus = LocationStatus.LOCATING) }
         viewModelScope.launch {
-            when (val result = locationRepository.getCurrentLocation(timeoutMillis = 5_000L)) {
+            when (val result = locationRepository.getCurrentLocation(timeoutMillis = 10_000L)) {
                 is LocationResult.Success -> _uiState.update {
                     it.copy(
                         latitude = result.location.latitude,
@@ -98,5 +98,9 @@ class SosViewModel @Inject constructor(
                 _uiState.update { it.copy(sendState = SosSendState.FAILED) }
             }
         }
+    }
+
+    fun reset() {
+        _uiState.update { it.copy(sendState = SosSendState.IDLE, message = "") }
     }
 }

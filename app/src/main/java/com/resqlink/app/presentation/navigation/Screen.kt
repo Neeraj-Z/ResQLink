@@ -21,6 +21,6 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector?
 
     companion object {
         /** Destinations shown in the bottom navigation bar, in display order. SOS is handled as a FAB, not a tab. */
-        val bottomBarItems = listOf(Home, Map, FirstAid, Hazards, Analytics)
+        val bottomBarItems = listOf(Home, Map, FirstAid, Analytics)
     }
 }

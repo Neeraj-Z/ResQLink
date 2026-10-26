@@ -17,3 +17,6 @@ captures/
 *.class
 *.log
 Thumbs.db
+node_modules
+.expo/
+dist/

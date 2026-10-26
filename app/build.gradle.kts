@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -11,6 +13,12 @@ plugins {
     // Console setup in README section 9 and place that file at app/google-services.json
     // before this project will build at all, now that this plugin is applied.
     id("com.google.gms.google-services")
+}
+
+// Read local.properties for secrets that must NOT be committed to version control.
+val localProps = Properties().also { props ->
+    val localFile = rootProject.file("local.properties")
+    if (localFile.exists()) props.load(localFile.inputStream())
 }
 
 android {
@@ -30,6 +38,12 @@ android {
 
         // Injected at build time; never commit real keys. See README "Secrets" section.
         manifestPlaceholders["MAPS_API_KEY"] = System.getenv("MAPS_API_KEY") ?: "YOUR_MAPS_API_KEY_HERE"
+
+        // Master Dashboard URL — configured once in local.properties (see MASTER_DASHBOARD_URL).
+        // Change that single line to point the app at a LAN server, cloud host, or ngrok tunnel.
+        // Falls back to the Android emulator loopback if the property is missing.
+        val dashboardUrl = localProps.getProperty("MASTER_DASHBOARD_URL", "http://10.0.2.2:9000")
+        buildConfigField("String", "MASTER_DASHBOARD_URL", "\"$dashboardUrl\"")
     }
 
     buildTypes {

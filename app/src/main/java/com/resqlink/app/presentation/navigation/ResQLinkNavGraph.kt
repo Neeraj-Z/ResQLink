@@ -18,7 +18,6 @@ import com.resqlink.app.presentation.analytics.AnalyticsScreen
 import com.resqlink.app.presentation.components.ResQLinkBottomBar
 import com.resqlink.app.presentation.components.ResQLinkNavRail
 import com.resqlink.app.presentation.firstaid.FirstAidScreen
-import com.resqlink.app.presentation.hazard.HazardScreen
 import com.resqlink.app.presentation.home.HomeScreen
 import com.resqlink.app.presentation.map.MapScreen
 import com.resqlink.app.presentation.settings.SettingsScreen
@@ -61,14 +60,18 @@ fun ResQLinkNavGraph(
                 HomeScreen(
                     onNavigateToMap = { navController.navigate(Screen.Map.route) },
                     onNavigateToSos = onSosClick,
-                    onNavigateToHazards = { navController.navigate(Screen.Hazards.route) },
-                    onNavigateToFirstAid = { navController.navigate(Screen.FirstAid.route) }
+                    onNavigateToFirstAid = { navController.navigate(Screen.FirstAid.route) },
+                    onNavigateToAnalytics = { navController.navigate(Screen.Analytics.route) }
                 )
             }
             composable(Screen.Map.route) { MapScreen() }
-            composable(Screen.Sos.route) { SosScreen(onBack = { navController.popBackStack() }) }
+            composable(Screen.Sos.route) {
+                SosScreen(
+                    onBack = { navController.popBackStack() },
+                    onNavigateToAnalytics = { navController.navigate(Screen.Analytics.route) }
+                )
+            }
             composable(Screen.FirstAid.route) { FirstAidScreen() }
-            composable(Screen.Hazards.route) { HazardScreen() }
             composable(Screen.Analytics.route) { AnalyticsScreen() }
             composable(Screen.Settings.route) { SettingsScreen() }
         }

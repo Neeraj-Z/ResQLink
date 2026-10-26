@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "ResQLink",
+    "slug": "resqlink",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#06090F"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "ResQLink uses your location to pinpoint your coordinates during an SOS emergency and show nearby hazards."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#06090F"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow ResQLink to use your location during emergency SOS events."
+        }
+      ],
+      "expo-asset"
+    ]
+  }
+}
