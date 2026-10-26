@@ -34,7 +34,9 @@
           "locationAlwaysAndWhenInUsePermission": "Allow ResQLink to use your location during emergency SOS events."
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      "expo-font",
+      "expo-status-bar"
     ]
   }
 }
