@@ -1,136 +1,101 @@
 # ResQLink — Offline-First Disaster Management & Mesh Emergency Platform
 
-[![Android](https://img.shields.io/badge/Platform-Android%20%7C%20Cross--Platform-green.svg)](https://developer.android.com/)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.0-blue.svg)](https://kotlinlang.org/)
-[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4.svg)](https://developer.android.com/jetpack/compose)
-[![React Native / Expo](https://img.shields.io/badge/React%20Native-Expo-black.svg)](https://expo.dev/)
+[![Android](https://img.shields.io/badge/Platform-Android-3DDC84.svg?style=flat&logo=android&logoColor=white)](https://developer.android.com/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.0-7F52FF.svg?style=flat&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4.svg?style=flat&logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
 [![Nearby Connections](https://img.shields.io/badge/Mesh%20Network-Nearby%20Connections-orange.svg)](https://developers.google.com/nearby/connections/overview)
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg)](LICENSE)
+[![Release](https://img.shields.io/badge/Latest%20Release-v1.0.0-blue.svg)](https://github.com/Neeraj-Z/ResQLink/releases/latest)
 
-**ResQLink** is a resilient, offline-first disaster response and emergency coordination platform designed for communication blackouts caused by earthquakes, floods, hurricanes, and infrastructure failures.
+**ResQLink** is a production-grade, offline-first disaster response and emergency coordination platform engineered for complete communication blackouts caused by earthquakes, floods, hurricanes, and infrastructure collapses.
 
-When cellular networks and power grids collapse, ResQLink turns surrounding smartphones into an ad-hoc, multi-hop **Peer-to-Peer (P2P) mesh network** using Bluetooth Low Energy (BLE) and Wi-Fi Direct. Critical SOS distress signals, medical triage data, hazard intelligence, and evacuation maps route autonomously across intermediate devices until reaching emergency responders or an active internet gateway.
-
-
-
----
-
-## 📱 Running ResQLink on Android (via Expo Go)
-
-You can run and test ResQLink directly on any physical Android phone in **under 2 minutes** without needing Android Studio or APK installations:
-
-### Quick 3-Step Setup with Expo Go:
-1. **Install Expo Go on Android**:
-   * Open the **Google Play Store** on your Android phone and install **[Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent)**.
-2. **Start the Development Server on your PC**:
-   * In the project root directory, run:
-     ```bash
-     npm run tunnel
-     ```
-     *(Or if your PC and phone are on the same Wi-Fi network, simply run `npx expo start`)*.
-3. **Scan the QR Code**:
-   * A dynamic QR code will be generated directly in your terminal window.
-   * Open the **Expo Go** app on your Android device, tap **"Scan QR code"**, and point your camera at the terminal screen.
-   * ResQLink will instantly bundle and run with full touch controls, offline maps, and reactive state!
-
-> 💡 **Quick Helper Script**: You can also run `node generate_qr.js` to launch the Expo tunnel directly, or open [qr.html](qr.html) in your browser for a quick visual walkthrough.
+When cellular towers and internet backbones fail, ResQLink turns Android devices into an autonomous, multi-hop **Peer-to-Peer (P2P) mesh network** using Bluetooth Low Energy (BLE) and Wi-Fi Direct. Critical distress signals, triage vitals, hazard perimeters, and emergency maps propagate across intermediate devices until reaching first responders or an active internet gateway.
 
 ---
 
-## 📖 How to Use ResQLink on Android (Field Guide)
+## 📥 Direct APK Installation (Android)
 
-ResQLink is built for high-stress disaster situations. Here is how each module functions on an Android device during an emergency:
+You can download and install the pre-compiled Android app directly on any Android device:
 
-### 1. 🚨 Triggering an Emergency SOS Beacon
-* **One-Touch Activation**: Tap the prominent **SOS** tab. Press the large red **SEND SOS** button to initiate emergency broadcasting.
-* **Safety Countdown**: A 5-second audible cancellation window prevents accidental triggers.
-* **Critical Telemetry**: Automatically bundles your exact GPS coordinates (latitude/longitude), battery percentage, timestamp, and casualty tags.
-* **Silent Distress Option**: Toggle "Silent Alarm" if situational danger requires sending distress signals covertly without sound or flashing screens.
-* **Store-and-Forward**: If cellular/Wi-Fi is completely down, the alert is instantly written to your local offline database and handed to the peer-to-peer mesh engine.
+[![Download APK](https://img.shields.io/badge/Direct%20Download-ResQLink%20Android%20APK%20(v1.0.0)-success?style=for-the-badge&logo=android)](https://github.com/Neeraj-Z/ResQLink/releases/latest/download/ResQLink.apk)
 
-### 2. 🗺️ Offline Interactive Tactical Map
-* **Zero-Connection Geolocation**: Open the **Map** tab to view your current location against cached offline map tiles.
-* **Hazard Danger Zones**: Red and amber danger circles illustrate active hazards (flood waters, structural collapses, active fires) with real-time radius estimates.
-* **Safe Evacuation Havens**: Tap green sanctuary markers to view directions to verified relief centers, medical camps, and food distribution hubs.
-* **Active SOS Geo-Pins**: Emergency beacons within your vicinity appear on the map with casualty urgency levels.
+* **Direct APK Download**: **[ResQLink.apk (v1.0.0)](https://github.com/Neeraj-Z/ResQLink/releases/latest/download/ResQLink.apk)**
+* **All Releases & Notes**: [GitHub Releases](https://github.com/Neeraj-Z/ResQLink/releases)
 
-### 3. 📡 Autonomous Offline P2P Mesh Networking
-* **No SIM or Internet Needed**: The app uses Bluetooth Low Energy and Wi-Fi Direct to form an ad-hoc local mesh with other nearby ResQLink devices.
-* **Automatic Background Relay**: When you pass other people with ResQLink, your phone automatically forwards stored SOS alerts across devices up to 6 hops away.
-* **Gateway Synchronization**: As soon as any single device in the mesh reaches an area with connectivity, all accumulated distress signals upload immediately to rescue headquarters.
+### How to Install on Android:
+1. Tap the download link above on your Android phone.
+2. Open the downloaded `ResQLink.apk` file.
+3. Tap **Install** (if prompted, allow *"Install unknown apps"* for your browser in Settings).
+4. Launch **ResQLink** and grant Bluetooth and Location permissions for peer-to-peer mesh networking.
 
-### 4. 🩹 Offline First Aid Medical Knowledge Base
-* **Immediate Local Search**: Switch to the **First Aid** tab to access triage protocols for CPR, severe hemorrhage, bone fractures, burns, hypothermia, and shock.
-* **High-Legibility Layout**: Designed with high-contrast, distraction-free cards so instructions are easily readable in low-light and high-stress environments.
+---
+
+## 🌟 Core Features
+
+### 1. 🚨 Immediate SOS Distress System
+* **One-Touch Beacon**: Instantly broadcast distress signals with exact GPS coordinates (latitude, longitude, altitude), battery percentage, timestamp, and victim count.
+* **Safety Countdown**: A 5-second audible cancellation window prevents accidental emergency broadcasts.
+* **Silent Alarm Mode**: Covert distress broadcasting for hazardous situations where sirens or screen flashes could endanger the victim.
+* **Local Store-and-Forward**: If completely disconnected, the alert is immediately persisted in local Room SQLite storage and queued for background mesh relay.
+
+### 2. 🗺️ Offline Interactive Tactical Maps
+* **100% Offline Geolocation**: Embedded Leaflet engine and offline cached tiles allow navigation and situational awareness without any cellular signal.
+* **Dynamic Danger Buffers**: Interactive colored danger zones illustrate verified hazard perimeters (structural collapses, flash floods, active fires) with real-time radius estimates.
+* **Evacuation Sanctuary Markers**: Direct routing to verified relief shelters, medical camps, and food/water distribution points.
+* **Live Distress Geo-Pins**: Nearby SOS beacons are mapped in real time with casualty severity indicators.
+
+### 3. 📡 Autonomous Multi-Hop P2P Mesh Relay
+* **Zero-Configuration Ad-Hoc Mesh**: Automatically discovers and links nearby devices using Google Nearby Connections (`P2P_CLUSTER` topology) without requiring cellular data, internet access, or manual Bluetooth pairing.
+* **Multi-Hop Store-and-Forward**: Devices forward distress alerts to newly encountered peer nodes (up to 6 hops). The moment *any* node in the mesh chain gains cellular/Wi-Fi connectivity, pending packets automatically synchronize to central emergency servers.
+* **Broadcast Storm & Loop Protection**: Packets carry unique collision-resistant UUIDs and hop-limit counters (TTL) to prevent broadcast storming.
+* **Persistent Background Daemon**: Background service (`SosForegroundService`) keeps mesh relay active even when the screen is locked or the app is minimized.
+
+### 4. 🩹 Indexed Offline First Aid Knowledge Base
+* **Local Instant Search**: Rapid search through emergency protocols (CPR, arterial bleeding, fractures, burns, shock, water purification) with zero network latency.
+* **High-Legibility Triage Layout**: Designed with high-contrast cards optimized for low-light, high-stress disaster conditions.
 
 ### 5. ⚠️ Real-Time Hazard Intelligence
-* **Categorized Threat Streams**: Open the **Hazards** tab to monitor severity-coded updates (Critical, High, Moderate, Advisory).
-* **Incident Details**: Read verified safety instructions, wind/water movement, and recommended evacuation routes.
+* **Severity-Categorized Threat Feeds**: Filter alerts by Critical, High, Moderate, and Advisory status.
+* **Field Updates**: Step-by-step safety recommendations, water level forecasts, and evacuation guidance.
 
-### 6. 🪪 Offline Medical ID & Paramedic QR Code
-* **Emergency Medical Card**: Access the **Settings / Profile** tab to configure your blood group, known allergies, chronic conditions, and emergency contacts.
-* **Offline Paramedic Scan**: Generates an on-screen QR code containing your medical summary that first responders can scan with any phone even if you are unconscious.
-
----
-
-## 🌟 Key Capabilities
-
-### 1. Multi-Hop P2P Mesh SOS Relay
-* **Zero-Pairing Ad-Hoc Mesh**: Automatically discovers, connects, and relays distress packets among nearby devices using Google Nearby Connections (`P2P_CLUSTER` topology) without requiring cellular data, internet access, or manual Bluetooth pairing.
-* **Store-and-Forward Routing**: Devices cache incoming distress alerts locally in Room/SQLite and relay them to newly encountered peer nodes. The moment *any* node in the mesh chain gains cellular/Wi-Fi connectivity, pending packets automatically synchronize to central emergency servers.
-* **Loop Prevention & Deduplication**: Packets carry unique collision-resistant UUIDs and hop-limit counters (TTL) to prevent broadcast storming and infinite loops.
-* **Persistent Background Daemon**: Background service (`SosForegroundService`) keeps mesh relay active even when the screen is locked or the application is minimized.
-
-### 2. Tactical Offline Maps & Hazard Zoning
-* **100% Offline Geolocation**: Embeds local Leaflet rendering and map asset caches to display emergency zones without internet connectivity.
-* **Dynamic Danger Buffers**: Visualizes hazard perimeters (floods, structural collapses, wildfires) with interactive severity levels (High, Moderate, Advisory).
-* **SOS Beacon Tracking**: Plots distress signals with precise GPS coordinates, timestamps, and victim medical tags directly on the emergency map.
-
-### 3. Immediate One-Touch SOS Triage
-* **Fast-Path Broadcast**: Triggers rapid distress alerts with exact GPS telemetry, battery level, timestamp, and victim count.
-* **Offline Medical Registry**: Generates an emergency QR identity code containing blood type, allergies, pre-existing conditions, and emergency contacts, scannable offline by field paramedics.
-
-### 4. Indexed Offline First Aid Knowledge Base
-* **Local Offline Search**: Full database of critical emergency guides (CPR, trauma triage, severe burns, fracture stabilization, water purification) fully functional without network access.
-* **Step-by-Step Triage Instructions**: Designed with high-contrast, distraction-free typography for high-stress disaster conditions.
-
-### 5. Tactical Command Dashboard & Field Bridge
-* **Field Command Bridge (`laptop_bridge.js`)**: Lightweight gateway bridging field radios/tablets and coordinating rescue operations on local disaster headquarters laptops.
-* **Master Disaster Dashboard (`master_dashboard.js`)**: Real-time visual monitoring console summarizing active SOS alerts, mesh relay density, and hazard status.
+### 6. 🪪 Offline Medical ID & Paramedic QR
+* **Emergency Medical Card**: Stores critical medical telemetry (blood group, allergies, chronic conditions, emergency contacts) locally.
+* **Offline Paramedic Scan**: Generates an on-screen QR code that rescue workers and paramedics can scan with standard phone cameras even if the user is unconscious.
 
 ---
 
 ## 🏗️ Architecture & Technology Stack
 
-ResQLink follows **Clean Architecture** principles and the **MVVM (Model-View-ViewModel)** design pattern with unidirectional data flow.
+ResQLink is built following **Clean Architecture** principles and the **MVVM (Model-View-ViewModel)** design pattern with unidirectional data flow.
 
 ```
                       ┌────────────────────────────────────────┐
-                      │             UI / Presentation          │
-                      │   (Jetpack Compose M3 / React Native)   │
+                      │          Presentation Layer            │
+                      │  (Jetpack Compose M3 + StateFlow + VM)  │
                       └───────────────────▲────────────────────┘
                                           │ State / Events
                       ┌───────────────────▼────────────────────┐
-                      │          Domain Business Logic         │
-                      │  (UseCases, Models, Relay Interfaces)   │
+                      │             Domain Layer               │
+                      │   (Use Cases, Domain Models, Mesh API) │
                       └─────────▲────────────────────▲─────────┘
                                 │                    │
                 ┌───────────────┴────┐          ─────┴──────────────────┐
-                │ Local Data Source  │          │   Mesh & Remote Sync   │
+                │     Data Layer     │          │   Mesh & Remote Sync   │
                 │  (Room SQLite DB)  │          │  (Nearby Mesh Manager) │
                 └────────────────────┘          └────────────────────────┘
 ```
 
 | Layer | Technologies |
 | :--- | :--- |
-| **Android Mobile** | Kotlin 2.0, Jetpack Compose, Material Design 3, Coroutines, StateFlow |
-| **Cross-Platform / Web** | React Native, Expo, TypeScript |
-| **Dependency Injection**| Dagger Hilt |
-| **Local Persistence** | Android Room Database, DataStore Preferences, Async Storage |
-| **Mesh Networking** | Google Nearby Connections API (Bluetooth LE + Wi-Fi Direct) |
-| **Mapping & GIS** | Leaflet, OpenStreetMap offline tile engine |
-| **Background Sync** | Android WorkManager (Expedited / Periodic SOS flush workers) |
-| **Command & Control** | Node.js, Express, WebSockets, HTML5/CSS3 Dashboard |
+| **Language & Platform** | Kotlin 2.0 • Android SDK (minSdk 26, targetSdk 35) |
+| **UI Framework** | Jetpack Compose • Material Design 3 |
+| **Asynchronous Engine** | Kotlin Coroutines • StateFlow / SharedFlow |
+| **Dependency Injection** | Dagger Hilt |
+| **Local Persistence** | Room Database (SQLite) • DataStore Preferences |
+| **Mesh Networking** | Google Nearby Connections API (`P2P_CLUSTER`) |
+| **Mapping Engine** | Embedded Leaflet GIS • OpenStreetMap offline cache |
+| **Background Processing** | Android WorkManager (Expedited / Periodic SOS flush workers) |
+| **Incident Command** | Node.js Incident Operations Dashboard & Field Bridge |
 
 ---
 
@@ -138,103 +103,79 @@ ResQLink follows **Clean Architecture** principles and the **MVVM (Model-View-Vi
 
 ```
 ResQLink/
-├── app/                              # Android Native Application
+├── app/                              # Android Native Project Module
 │   ├── src/main/java/com/resqlink/app/
 │   │   ├── data/                     # Room DAOs, Entities, Mesh & Location Repositories
 │   │   ├── domain/                   # Pure Kotlin business models & Use Cases
 │   │   ├── presentation/             # Jetpack Compose Screens (Home, Map, SOS, Analytics...)
 │   │   ├── di/                       # Dagger Hilt Dependency Injection Modules
-│   │   ├── service/                  # SosForegroundService (Persistent Mesh Relay)
+│   │   ├── service/                  # SosForegroundService (Persistent Mesh Relay Daemon)
 │   │   └── worker/                   # WorkManager background sync workers
-│   └── src/main/assets/leaflet/      # Embedded offline Leaflet mapping engine
-├── src/                              # React Native / Expo Application
-│   ├── components/                   # Reusable UI widgets & map adapters
-│   ├── context/                      # App state context & offline providers
-│   ├── mesh/                         # P2P mesh network engine & packet handlers
-│   ├── screens/                      # Mobile screens (SOS, Map, Hazards, First Aid, Analytics)
-│   └── theme/                        # Design tokens, typography, and dark/light palettes
+│   ├── src/main/assets/leaflet/      # Embedded offline Leaflet mapping engine
+│   └── build.gradle.kts              # App module dependencies & SDK configurations
+├── build.gradle.kts                  # Root project Gradle build configuration
+├── settings.gradle.kts               # Project settings & module repository catalog
 ├── master_dashboard.js               # Tactical Incident Command Dashboard server
 ├── laptop_bridge.js                  # Field gateway bridge server
-├── generate_qr.js                    # Offline Medical ID QR generator
-└── firestore.rules                   # Backend security rules & access controls
+├── firestore.rules                   # Backend security rules & access controls
+└── README.md                         # Project documentation
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Building & Running from Source
 
 ### Prerequisites
-* **Android Studio Ladybug (2024.2+)** or **Koala (2024.1+)** with **JDK 17**.
-* **Android SDK Platform 35** (Android 15+ compatible, 16 KB page alignment compliant).
-* **Node.js 18+** and **npm** (for the cross-platform client and master dashboard).
+* **Android Studio Ladybug (2024.2+)** or **Koala (2024.1+)**
+* **JDK 17**
+* **Android SDK Platform 35** (Android 15+ compatible, 16 KB memory page aligned)
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/Neeraj-Z/ResQLink.git
+cd ResQLink
+```
+
+### Step 2: Open in Android Studio
+1. Launch Android Studio.
+2. Select **Open an Existing Project** and choose the root `ResQLink` folder.
+3. Allow Gradle to download dependencies and sync the project.
+
+### Step 3: Run on Physical Device
+> ⚠️ **Note on Mesh Testing:** Google's Nearby Connections API requires physical hardware radios (Bluetooth and Wi-Fi) to form peer-to-peer mesh networks. For full mesh testing, run on physical Android devices rather than emulators.
+
+1. Enable **Developer Options** and **USB Debugging** on your Android phone.
+2. Connect your phone to your PC via USB.
+3. In Android Studio, select your device from the target selector.
+4. Click **Run 'app'** (`Shift + F10`) or execute in your terminal:
+   ```bash
+   ./gradlew installDebug
+   ```
 
 ---
 
-### Running the Android Native App
+## 💻 Incident Command Dashboard & Field Bridge (Optional)
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Neeraj-Z/ResQLink.git
-   cd ResQLink
-   ```
+For local disaster coordination teams operating from command vehicles or base camps:
 
-2. **Open in Android Studio:**
-   * Select **Open an Existing Project** and choose the root `ResQLink` folder.
-   * Allow Gradle to sync dependencies.
-
-3. **Configure Environment:**
-   * Provide a valid Google Maps API key (optional if using Leaflet offline maps) in your environment:
-     ```bash
-     export MAPS_API_KEY="your_api_key_here"
-     ```
-   * Add `google-services.json` inside the `app/` directory for cloud sync, or build directly with offline mock data.
-
-4. **Build and Run:**
-   * Connect a physical Android device (Bluetooth and Wi-Fi enabled for mesh testing).
-   * Run the `:app` target.
-
----
-
-### Running the Cross-Platform Mobile / Web App
-
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-2. **Start the Expo development server:**
-   ```bash
-   npm start
-   ```
-
-3. **Launch the application:**
-   * Press `w` to open the interactive web preview.
-   * Press `a` to run on a connected Android device or emulator.
-   * Scan the terminal QR code with the **Expo Go** app on your phone.
-
----
-
-### Launching the Incident Command Dashboard & Bridge
-
-To run the incident command center for local emergency coordinators:
-
-1. **Start the Master Dashboard:**
+1. **Start the Master Rescue Operations Dashboard:**
    ```bash
    node master_dashboard.js
    ```
-   Access the dashboard at `http://localhost:3000`.
+   Open `http://localhost:9000` in any web browser to view aggregated mesh alerts, multi-hop packet traces, and live victim statuses.
 
-2. **Start the Field Bridge:**
+2. **Start the Field Radio Gateway Bridge:**
    ```bash
    node laptop_bridge.js
    ```
+   Opens a local UDP/HTTP bridge on port `8988` to connect field radios with laptop coordination software.
 
 ---
 
-## 📡 Mesh Networking Specifications
+## 📡 Mesh Networking Protocol Specifications
 
-* **Topology**: Star-Mesh Hybrid (`Strategy.P2P_CLUSTER`).
-* **Relay Strategy**: Store-and-Forward epidemic routing with hop-count ceiling (`MAX_HOPS = 6`).
+* **Topology**: Decentralized Star-Mesh Hybrid (`Strategy.P2P_CLUSTER`).
+* **Routing Strategy**: Store-and-forward epidemic routing with hop-count ceiling (`MAX_HOPS = 6`).
 * **Packet Schema**:
   ```json
   {
@@ -246,7 +187,7 @@ To run the incident command center for local emergency coordinators:
     "longitude": 77.2090,
     "severity": "CRITICAL",
     "hopCount": 1,
-    "data": "Medical emergency, rescue required"
+    "data": "Medical emergency, trapped victim"
   }
   ```
 * **Deduplication**: Incoming packets are hashed against local SQLite storage. Packets with existing message IDs or expired TTL are dropped immediately to avoid channel saturation.
