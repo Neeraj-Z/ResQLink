@@ -25,9 +25,9 @@ You can run and test ResQLink directly on any physical Android phone in **under 
 2. **Start the Development Server on your PC**:
    * In the project root directory, run:
      ```bash
-     npx expo start --tunnel
+     npm run tunnel
      ```
-     *(The `--tunnel` flag creates a secure connection allowing your phone to connect over Wi-Fi or mobile data without complex network setup).*
+     *(Or if your PC and phone are on the same Wi-Fi network, simply run `npx expo start`)*.
 3. **Scan the QR Code**:
    * A dynamic QR code will be generated directly in your terminal window.
    * Open the **Expo Go** app on your Android device, tap **"Scan QR code"**, and point your camera at the terminal screen.

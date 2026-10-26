@@ -14,7 +14,7 @@ console.log('⚡ Starting ResQLink Mobile with Expo Go Tunnel...');
 console.log('📱 Scan the QR code displayed below using Expo Go on your phone.');
 console.log('====================================================\n');
 
-const expo = spawn('npx', ['expo', 'start', '--tunnel'], {
+const expo = spawn('npx', ['expo', 'start', '--tunnel', 'ngrok'], {
   stdio: 'inherit',
   shell: true
 });
