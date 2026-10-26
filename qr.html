@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResQLink — Install on Android Device</title>
+  <title>ResQLink — Run on Android via Expo Go</title>
   <style>
     :root {
       --bg: #070B12;
@@ -11,9 +11,9 @@
       --border: #1E293B;
       --text: #F1F5F9;
       --text-muted: #94A3B8;
-      --accent: #10B981;
-      --accent-glow: rgba(16, 185, 129, 0.2);
-      --primary: #38BDF8;
+      --accent: #38BDF8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --success: #10B981;
     }
     * {
       box-sizing: border-box;
@@ -58,148 +58,129 @@
     p.subtitle {
       color: var(--text-muted);
       font-size: 15px;
-      max-width: 480px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 760px;
-      width: 100%;
+      max-width: 520px;
     }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 28px;
+      padding: 32px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .steps {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      position: relative;
+      gap: 20px;
+      margin-top: 10px;
     }
-    .card.featured {
-      border-color: var(--accent);
-      box-shadow: 0 0 25px var(--accent-glow);
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
     }
-    .card-title {
-      font-size: 19px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .card-desc {
-      color: var(--text-muted);
-      font-size: 13px;
-      line-height: 1.4;
-      margin-bottom: 20px;
-    }
-    .qr-frame {
-      background: #FFFFFF;
-      padding: 14px;
-      border-radius: 14px;
+    .step-number {
+      background: var(--accent);
+      color: #070B12;
+      font-weight: 800;
+      font-size: 14px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+      margin-top: 2px;
     }
-    .qr-frame img {
-      width: 200px;
-      height: 200px;
-      display: block;
+    .step-content h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
-    .btn {
+    .step-content p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .code-block {
+      background: #06090F;
+      border: 1px solid #1E293B;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: monospace;
+      color: #38BDF8;
+      font-size: 13px;
+      margin-top: 8px;
       display: inline-block;
-      width: 100%;
-      padding: 12px 20px;
-      border-radius: 10px;
+    }
+    .features-list {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .features-list h4 {
       font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
+      color: var(--success);
+      margin-bottom: 10px;
     }
-    .btn-primary {
-      background: var(--accent);
-      color: #070B12;
-    }
-    .btn-primary:hover {
-      background: #0ea674;
-    }
-    .btn-secondary {
-      background: #1E293B;
-      color: var(--text);
-    }
-    .btn-secondary:hover {
-      background: #2B3A52;
-    }
-    .instructions {
-      margin-top: 28px;
-      max-width: 620px;
-      background: rgba(30, 41, 59, 0.5);
-      border-radius: 12px;
-      padding: 16px 20px;
-      border: 1px solid var(--border);
-    }
-    .instructions h3 {
-      font-size: 14px;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-    .instructions ol {
-      padding-left: 20px;
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
       color: var(--text-muted);
       font-size: 13px;
-      line-height: 1.6;
     }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <div class="brand-badge">⚡ RESQLINK EMERGENCY SYSTEM</div>
-    <h1>Install ResQLink on Android</h1>
-    <p class="subtitle">Scan the QR code directly with your Android phone's Camera, Google Lens, or QR scanner.</p>
+    <div class="brand-badge">📱 EXPO GO MOBILE RUNNER</div>
+    <h1>Run ResQLink on Android</h1>
+    <p class="subtitle">Experience the full offline disaster management platform on your Android phone in 3 easy steps without compiling code.</p>
   </div>
 
-  <div class="grid">
-    <!-- Option 1: Direct APK Installation -->
-    <div class="card featured">
-      <div class="card-title">Direct APK Installation</div>
-      <p class="card-desc">Scan to immediately download and install the standalone Android App (`.apk`).</p>
-      
-      <div class="qr-frame">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fgithub.com%2FNeeraj-Z%2FResQLink%2Freleases%2Flatest%2Fdownload%2FResQLink.apk" alt="Direct APK QR Code">
+  <div class="card">
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Install Expo Go on Android</h3>
+          <p>Download the free <strong>Expo Go</strong> app from the <a href="https://play.google.com/store/apps/details?id=host.exp.exponent" target="_blank" style="color: var(--accent);">Google Play Store</a> on your phone.</p>
+        </div>
       </div>
 
-      <a class="btn btn-primary" href="https://github.com/Neeraj-Z/ResQLink/releases/latest/download/ResQLink.apk" download>
-        Direct Download APK (v1.0.0)
-      </a>
-    </div>
-
-    <!-- Option 2: Live Mobile Expo Preview -->
-    <div class="card">
-      <div class="card-title">Instant Expo Go Preview</div>
-      <p class="card-desc">Scan with the Expo Go app to test and preview the client instantly.</p>
-      
-      <div class="qr-frame">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=exp%3A%2F%2Fio2waue-anonymous-8081.exp.direct" alt="Expo Go QR Code">
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Start the Project Server</h3>
+          <p>In your terminal inside the project root folder, run:</p>
+          <div class="code-block">npx expo start --tunnel</div>
+        </div>
       </div>
 
-      <a class="btn btn-secondary" href="https://expo.dev/client" target="_blank" rel="noreferrer">
-        Get Expo Go App
-      </a>
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Scan the Terminal QR Code</h3>
+          <p>Open <strong>Expo Go</strong> on your phone, tap <strong>"Scan QR code"</strong>, and scan the QR code printed in your computer terminal. The app will immediately bundle and run natively!</p>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="instructions">
-    <h3>📱 How to Install via QR on Android:</h3>
-    <ol>
-      <li>Open your phone's <strong>Camera</strong> or <strong>Google Lens</strong> and point it at the QR code above.</li>
-      <li>Tap the pop-up link to download <code>ResQLink.apk</code>.</li>
-      <li>When prompted, tap <strong>Install</strong> (if requested, allow "Install from this source" in your settings).</li>
-      <li>Open ResQLink and grant Bluetooth/Location permissions for offline mesh communication!</li>
-    </ol>
+    <div class="features-list">
+      <h4>⚡ Available on Android:</h4>
+      <div class="features-grid">
+        <div>🚨 One-Touch SOS Beacon</div>
+        <div>🗺️ Offline Interactive Maps</div>
+        <div>📡 P2P Mesh Relay Engine</div>
+        <div>🩹 Indexed First Aid Guides</div>
+        <div>⚠️ Dynamic Hazard Alerts</div>
+        <div>🪪 Emergency QR Medical ID</div>
+      </div>
+    </div>
   </div>
 
 </body>

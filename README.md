@@ -12,28 +12,64 @@
 When cellular networks and power grids collapse, ResQLink turns surrounding smartphones into an ad-hoc, multi-hop **Peer-to-Peer (P2P) mesh network** using Bluetooth Low Energy (BLE) and Wi-Fi Direct. Critical SOS distress signals, medical triage data, hazard intelligence, and evacuation maps route autonomously across intermediate devices until reaching emergency responders or an active internet gateway.
 
 
+
 ---
 
-## 📲 Direct Installation via QR Code (Android)
+## 📱 Running ResQLink on Android (via Expo Go)
 
-Install ResQLink directly onto any Android device in seconds without needing a computer or Android Studio:
+You can run and test ResQLink directly on any physical Android phone in **under 2 minutes** without needing Android Studio or APK installations:
 
-<p align="center">
-  <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fgithub.com%2FNeeraj-Z%2FResQLink%2Freleases%2Flatest%2Fdownload%2FResQLink.apk" alt="Direct APK Install QR Code" width="220" />
-  <br>
-  <b>Scan with your Phone Camera or Google Lens to Install</b>
-  <br><br>
-  <a href="https://github.com/Neeraj-Z/ResQLink/releases/latest/download/ResQLink.apk">
-    <img src="https://img.shields.io/badge/Download-ResQLink%20Android%20APK%20(v1.0.0)-success?style=for-the-badge&logo=android" alt="Download APK" />
-  </a>
-</p>
+### Quick 3-Step Setup with Expo Go:
+1. **Install Expo Go on Android**:
+   * Open the **Google Play Store** on your Android phone and install **[Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent)**.
+2. **Start the Development Server on your PC**:
+   * In the project root directory, run:
+     ```bash
+     npx expo start --tunnel
+     ```
+     *(The `--tunnel` flag creates a secure connection allowing your phone to connect over Wi-Fi or mobile data without complex network setup).*
+3. **Scan the QR Code**:
+   * A dynamic QR code will be generated directly in your terminal window.
+   * Open the **Expo Go** app on your Android device, tap **"Scan QR code"**, and point your camera at the terminal screen.
+   * ResQLink will instantly bundle and run with full touch controls, offline maps, and reactive state!
 
-### Quick 3-Step Setup:
-1. **Scan the QR Code**: Point your Android device's **Camera** or **Google Lens** at the QR code above.
-2. **Download & Open**: Tap the download prompt to download `ResQLink.apk`.
-3. **Install & Launch**: Tap **Install** (allow *"Install unknown apps"* if prompted). Enable Bluetooth & Location for offline mesh networking!
+> 💡 **Quick Helper Script**: You can also run `node generate_qr.js` to launch the Expo tunnel directly, or open [qr.html](qr.html) in your browser for a quick visual walkthrough.
 
-> 💡 **Interactive Web Install Page**: Open [qr.html](qr.html) in your browser for a dual install portal (Direct APK + Live Expo Go preview).
+---
+
+## 📖 How to Use ResQLink on Android (Field Guide)
+
+ResQLink is built for high-stress disaster situations. Here is how each module functions on an Android device during an emergency:
+
+### 1. 🚨 Triggering an Emergency SOS Beacon
+* **One-Touch Activation**: Tap the prominent **SOS** tab. Press the large red **SEND SOS** button to initiate emergency broadcasting.
+* **Safety Countdown**: A 5-second audible cancellation window prevents accidental triggers.
+* **Critical Telemetry**: Automatically bundles your exact GPS coordinates (latitude/longitude), battery percentage, timestamp, and casualty tags.
+* **Silent Distress Option**: Toggle "Silent Alarm" if situational danger requires sending distress signals covertly without sound or flashing screens.
+* **Store-and-Forward**: If cellular/Wi-Fi is completely down, the alert is instantly written to your local offline database and handed to the peer-to-peer mesh engine.
+
+### 2. 🗺️ Offline Interactive Tactical Map
+* **Zero-Connection Geolocation**: Open the **Map** tab to view your current location against cached offline map tiles.
+* **Hazard Danger Zones**: Red and amber danger circles illustrate active hazards (flood waters, structural collapses, active fires) with real-time radius estimates.
+* **Safe Evacuation Havens**: Tap green sanctuary markers to view directions to verified relief centers, medical camps, and food distribution hubs.
+* **Active SOS Geo-Pins**: Emergency beacons within your vicinity appear on the map with casualty urgency levels.
+
+### 3. 📡 Autonomous Offline P2P Mesh Networking
+* **No SIM or Internet Needed**: The app uses Bluetooth Low Energy and Wi-Fi Direct to form an ad-hoc local mesh with other nearby ResQLink devices.
+* **Automatic Background Relay**: When you pass other people with ResQLink, your phone automatically forwards stored SOS alerts across devices up to 6 hops away.
+* **Gateway Synchronization**: As soon as any single device in the mesh reaches an area with connectivity, all accumulated distress signals upload immediately to rescue headquarters.
+
+### 4. 🩹 Offline First Aid Medical Knowledge Base
+* **Immediate Local Search**: Switch to the **First Aid** tab to access triage protocols for CPR, severe hemorrhage, bone fractures, burns, hypothermia, and shock.
+* **High-Legibility Layout**: Designed with high-contrast, distraction-free cards so instructions are easily readable in low-light and high-stress environments.
+
+### 5. ⚠️ Real-Time Hazard Intelligence
+* **Categorized Threat Streams**: Open the **Hazards** tab to monitor severity-coded updates (Critical, High, Moderate, Advisory).
+* **Incident Details**: Read verified safety instructions, wind/water movement, and recommended evacuation routes.
+
+### 6. 🪪 Offline Medical ID & Paramedic QR Code
+* **Emergency Medical Card**: Access the **Settings / Profile** tab to configure your blood group, known allergies, chronic conditions, and emergency contacts.
+* **Offline Paramedic Scan**: Generates an on-screen QR code containing your medical summary that first responders can scan with any phone even if you are unconscious.
 
 ---
 
