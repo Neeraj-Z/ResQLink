@@ -1,19 +1,25 @@
 const fs = require('fs');
 const https = require('https');
+const path = require('path');
 
-const tunnelUrl = 'exp://io2waue-anonymous-8081.exp.direct';
-const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(tunnelUrl)}`;
+// Direct APK release link & Expo tunnel URL
+const apkUrl = 'https://github.com/Neeraj-Z/ResQLink/releases/latest/download/ResQLink.apk';
+const expoUrl = 'exp://io2waue-anonymous-8081.exp.direct';
 
-const destPath = 'C:\\Users\\now12\\.gemini\\antigravity-ide\\brain\\652f6d92-1cf4-4f5d-a384-fd344c2cc672\\expo_qr.png';
-const file = fs.createWriteStream(destPath);
+const apkQrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(apkUrl)}`;
+const targetPath = path.join(__dirname, 'assets', 'install_qr.png');
 
-https.get(qrApiUrl, function(response) {
+console.log('Downloading latest APK Install QR Code...');
+const file = fs.createWriteStream(targetPath);
+
+https.get(apkQrApiUrl, function(response) {
   response.pipe(file);
   file.on('finish', function() {
     file.close(() => {
-      console.log('QR Code downloaded successfully to ' + destPath);
+      console.log('✅ QR Code downloaded successfully to ' + targetPath);
+      console.log('📱 Scan with any Android camera to install ResQLink directly!');
     });
   });
 }).on('error', function(err) {
-  console.error('Error downloading QR code: ' + err.message);
+  console.error('❌ Error generating QR code: ' + err.message);
 });

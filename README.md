@@ -11,6 +11,30 @@
 
 When cellular networks and power grids collapse, ResQLink turns surrounding smartphones into an ad-hoc, multi-hop **Peer-to-Peer (P2P) mesh network** using Bluetooth Low Energy (BLE) and Wi-Fi Direct. Critical SOS distress signals, medical triage data, hazard intelligence, and evacuation maps route autonomously across intermediate devices until reaching emergency responders or an active internet gateway.
 
+
+---
+
+## 📲 Direct Installation via QR Code (Android)
+
+Install ResQLink directly onto any Android device in seconds without needing a computer or Android Studio:
+
+<p align="center">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fgithub.com%2FNeeraj-Z%2FResQLink%2Freleases%2Flatest%2Fdownload%2FResQLink.apk" alt="Direct APK Install QR Code" width="220" />
+  <br>
+  <b>Scan with your Phone Camera or Google Lens to Install</b>
+  <br><br>
+  <a href="https://github.com/Neeraj-Z/ResQLink/releases/latest/download/ResQLink.apk">
+    <img src="https://img.shields.io/badge/Download-ResQLink%20Android%20APK%20(v1.0.0)-success?style=for-the-badge&logo=android" alt="Download APK" />
+  </a>
+</p>
+
+### Quick 3-Step Setup:
+1. **Scan the QR Code**: Point your Android device's **Camera** or **Google Lens** at the QR code above.
+2. **Download & Open**: Tap the download prompt to download `ResQLink.apk`.
+3. **Install & Launch**: Tap **Install** (allow *"Install unknown apps"* if prompted). Enable Bluetooth & Location for offline mesh networking!
+
+> 💡 **Interactive Web Install Page**: Open [qr.html](qr.html) in your browser for a dual install portal (Direct APK + Live Expo Go preview).
+
 ---
 
 ## 🌟 Key Capabilities

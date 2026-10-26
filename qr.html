@@ -2,98 +2,205 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ResQLink — Expo Go Tunnel QR Code (SDK 57)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResQLink — Install on Android Device</title>
   <style>
+    :root {
+      --bg: #070B12;
+      --card-bg: #0E1522;
+      --border: #1E293B;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+      --accent: #10B981;
+      --accent-glow: rgba(16, 185, 129, 0.2);
+      --primary: #38BDF8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      background-color: #06090F;
-      color: #E7ECF3;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #131E33 0%, var(--bg) 75%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
+      padding: 24px;
     }
-    .card {
-      background-color: #0B0F17;
-      border: 1px solid #232B3D;
-      border-radius: 16px;
-      padding: 32px;
-      max-width: 440px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
     }
     h1 {
-      color: #35E0C8;
-      font-size: 24px;
-      margin-top: 0;
+      font-size: 28px;
+      font-weight: 800;
       margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
-    p {
-      color: #7C8AA0;
-      font-size: 14px;
-      margin-bottom: 24px;
-      line-height: 1.5;
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 480px;
     }
-    .qr-container {
-      background-color: #FFFFFF;
-      padding: 16px;
-      border-radius: 12px;
-      display: inline-block;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 760px;
+      width: 100%;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+    .card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 0 25px var(--accent-glow);
+    }
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.4;
       margin-bottom: 20px;
     }
-    img {
+    .qr-frame {
+      background: #FFFFFF;
+      padding: 14px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .qr-frame img {
+      width: 200px;
+      height: 200px;
       display: block;
-      width: 280px;
-      height: 280px;
     }
-    .url-box {
-      background-color: #121826;
-      border: 1px solid #2A5A6B;
-      border-radius: 8px;
-      padding: 12px;
-      font-family: monospace;
-      color: #35E0C8;
-      font-size: 14px;
-      word-break: break-all;
-    }
-    .badge {
+    .btn {
       display: inline-block;
-      background: rgba(53, 224, 200, 0.15);
-      border: 1px solid #35E0C8;
-      color: #35E0C8;
-      padding: 4px 12px;
-      border-radius: 9999px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 16px;
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
     }
-    .note {
-      color: #3DDC97;
-      font-size: 12px;
-      margin-top: 16px;
+    .btn-primary {
+      background: var(--accent);
+      color: #070B12;
+    }
+    .btn-primary:hover {
+      background: #0ea674;
+    }
+    .btn-secondary {
+      background: #1E293B;
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      background: #2B3A52;
+    }
+    .instructions {
+      margin-top: 28px;
+      max-width: 620px;
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 12px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+    }
+    .instructions h3 {
+      font-size: 14px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .instructions ol {
+      padding-left: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="badge">EXPO SDK 57 • TUNNEL MODE</div>
-    <h1>Scan with Expo Go</h1>
-    <p>Point your phone's camera (iOS) or the Expo Go scanner (Android) at this code:</p>
 
-    <div class="qr-container">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=exp%3A%2F%2Fio2waue-anonymous-8081.exp.direct" alt="Expo Go QR Code">
+  <div class="header">
+    <div class="brand-badge">⚡ RESQLINK EMERGENCY SYSTEM</div>
+    <h1>Install ResQLink on Android</h1>
+    <p class="subtitle">Scan the QR code directly with your Android phone's Camera, Google Lens, or QR scanner.</p>
+  </div>
+
+  <div class="grid">
+    <!-- Option 1: Direct APK Installation -->
+    <div class="card featured">
+      <div class="card-title">Direct APK Installation</div>
+      <p class="card-desc">Scan to immediately download and install the standalone Android App (`.apk`).</p>
+      
+      <div class="qr-frame">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fgithub.com%2FNeeraj-Z%2FResQLink%2Freleases%2Flatest%2Fdownload%2FResQLink.apk" alt="Direct APK QR Code">
+      </div>
+
+      <a class="btn btn-primary" href="https://github.com/Neeraj-Z/ResQLink/releases/latest/download/ResQLink.apk" download>
+        Direct Download APK (v1.0.0)
+      </a>
     </div>
 
-    <div class="url-box">
-      exp://io2waue-anonymous-8081.exp.direct
-    </div>
+    <!-- Option 2: Live Mobile Expo Preview -->
+    <div class="card">
+      <div class="card-title">Instant Expo Go Preview</div>
+      <p class="card-desc">Scan with the Expo Go app to test and preview the client instantly.</p>
+      
+      <div class="qr-frame">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=exp%3A%2F%2Fio2waue-anonymous-8081.exp.direct" alt="Expo Go QR Code">
+      </div>
 
-    <div class="note">
-      ✓ Upgraded to Expo SDK 57 • Tunnel Active
+      <a class="btn btn-secondary" href="https://expo.dev/client" target="_blank" rel="noreferrer">
+        Get Expo Go App
+      </a>
     </div>
   </div>
+
+  <div class="instructions">
+    <h3>📱 How to Install via QR on Android:</h3>
+    <ol>
+      <li>Open your phone's <strong>Camera</strong> or <strong>Google Lens</strong> and point it at the QR code above.</li>
+      <li>Tap the pop-up link to download <code>ResQLink.apk</code>.</li>
+      <li>When prompted, tap <strong>Install</strong> (if requested, allow "Install from this source" in your settings).</li>
+      <li>Open ResQLink and grant Bluetooth/Location permissions for offline mesh communication!</li>
+    </ol>
+  </div>
+
 </body>
 </html>
